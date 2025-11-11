@@ -107,6 +107,14 @@ for module in $(find $out/lib -name "*.ko" -o -name "modules.load*" -o -name "mo
 	cp $module ./modules/vendor_dlkm/
 done
 
+if [ -f ./modules/vendor_dlkm/qca_cld3_wlan.ko ]; then
+    echo "Compressing ./modules/vendor_dlkm/qca_cld3_wlan.ko ..."
+    xz -T0 -3 -f ./modules/vendor_dlkm/qca_cld3_wlan.ko
+    echo "Compression done: ./modules/vendor_dlkm/qca_cld3_wlan.ko.xz"
+else
+    echo "Warning: ./modules/vendor_dlkm/qca_cld3_wlan.ko not found, skipping compression."
+fi
+
 # SYSTEM_DLKM
 echo "Extracting the dlkm kernel modules"
 out=$extract_out/system_dlkm
